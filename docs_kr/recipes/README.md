@@ -17,8 +17,9 @@ function* watchInput() {
   yield throttle(500, 'INPUT_CHANGED', handleInput)
 }
 ```
+이 헬퍼를 사용하면 `watchInput` 은 500ms 동안 새로운 `handleInput` 태스크를 시작하지 않을 것입니다, 그러나 동시에 여전히 가장 최신의 `INPUT_CHANGED` 액션을 그 밑에 있는 `buffer` 에 받아들이고, 그 중간에 일어난 `INPUT_CHANGED` 는 모두 놓칠 것입니다. 이것은 사가가 500ms 의 각각의 기간 동안에 최대 하나의 `INPUT_CHANGED` 액션을 처리하고, 다른 후행 액션을 여전히 처리할 수 있는 것을 보장합니다.
 
-By using this helper the `watchInput` won't start a new `handleInput` task for 500ms, but in the same time it will still be accepting the latest `INPUT_CHANGED` actions into its underlaying `buffer`, so it'll miss all `INPUT_CHANGED` actions happening in-between. This ensures that the Saga will take at most one `INPUT_CHANGED` action during each period of 500ms and still be able to process trailing action.
+<!-- By using this helper the `watchInput` won't start a new `handleInput` task for 500ms, but in the same time it will still be accepting the latest `INPUT_CHANGED` actions into its underlaying `buffer`, so it'll miss all `INPUT_CHANGED` actions happening in-between. This ensures that the Saga will take at most one `INPUT_CHANGED` action during each period of 500ms and still be able to process trailing action. -->
 
 ## Debouncing
 
